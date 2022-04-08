@@ -5,12 +5,25 @@ import "github.com/lordrusk/zara/modules"
 
 var delim = " "
 
+func init() { /* config */
+	/* modules/georona */
+	modules.ActiveCovidStats["rank"] = true
+	modules.ActiveCovidStats["totalsick"] = true
+	modules.ActiveCovidStats["sicktoday"] = true
+	modules.ActiveCovidStats["dead"] = true
+	modules.ActiveCovidStats["deadToday"] = true
+	modules.ActiveCovidStats["recovered"] = true
+	modules.ActiveCovidStats["critical"] = true
+}
+
 var mods = []modules.Module{
-	/* modules.NewMemory(6, 14, true), */
+	modules.NewPacPackages(0, 8),
+	modules.NewGeorona(60, 19, "USA (US)", ""),
+	modules.NewMemory(6, 14, true),
 	modules.NewMemory(6, 14, false),
 	modules.NewCpu(3, 13),
 	modules.NewCpubar(1, 22),
-	/* modules.NewDisk(7, 15, "/mnt"), */
+	modules.NewDisk(7, 15, "/mnt"),
 	modules.NewDisk(7, 15, "/home"),
 	modules.NewDisk(7, 15, ""),
 	modules.NewMoonphase(12*60*60, 18, "kennewick"),
@@ -29,7 +42,7 @@ var mods = []modules.Module{
 5 weather
 6 news (unimplemented)
 7 torrent (unimplemented)
-8 pacpackages (unimplemented)
+8 pacpackages
 9 recicon (unimplemented)
 10 volume
 11 music (unimplemented)
@@ -40,7 +53,7 @@ var mods = []modules.Module{
 16 nettraf
 17 crypto (unimplemented)
 18 astrological
-19 georona (in implementation)
+19 georona
 20 help-icon (unimplemented)
 21 vpnstat (unimplemented)
 22 cpubar

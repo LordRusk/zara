@@ -122,7 +122,6 @@ func (g *Georona) Run() (string, error) {
 		return statToStr(stats[g.state]), nil
 	} else {
 		stats, err := rona.ExtractStats(worldReport)
-		/* _, err = rona.ExtractStats(worldReport) */
 		if err != nil {
 			return "", err
 		}

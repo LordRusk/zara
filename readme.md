@@ -13,6 +13,8 @@ I've written many modules for zara to replace many of scripts from my [dotfiles]
 - cpu
 - cpubars
 - memory
+- georona
+- pacpackages
 
 ### Zara vs Gocaudices & Dwmblocks
 One problem I've encountered while writing scripts and programs for dwmblocks is that the script is just ran. Any information shared between runs must be stored in a file, and first run checks are checked every time the script is ran.
