@@ -106,7 +106,7 @@ func (inter *Internet) Run() (string, error) {
 		return "", fmt.Errorf("Failed to read '%s': %s", wireless, err)
 	}
 
-	if string(bytes.TrimSpace(eisUp)) != "up" {
+	if string(eisUp) != "up\n" {
 		out += " ❎"
 	} else {
 		out += " 🌐"

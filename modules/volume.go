@@ -26,12 +26,16 @@ func (_ Audio) Run() (string, error) {
 	}
 
 	var emoji string
-	if vol >= 70 {
-		emoji = "🔊"
-	} else if vol <= 30 {
-		emoji = "🔈"
+	if muted, _ := volume.GetMuted(); muted == true {
+		emoji = "🔇"
 	} else {
-		emoji = "🔉"
+		if vol >= 70 {
+			emoji = "🔊"
+		} else if vol <= 30 {
+			emoji = "🔈"
+		} else {
+			emoji = "🔉"
+		}
 	}
 
 	return fmt.Sprintf("%s%d%%", emoji, vol), nil

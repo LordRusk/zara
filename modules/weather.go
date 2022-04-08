@@ -75,6 +75,10 @@ func extractInts(str string) []int {
 	for i := 0; i < len(splitLine); i++ {
 		num, err := strconv.Atoi(splitLine[i])
 		if err != nil {
+			if splitLine[i] == "," {
+				continue
+			}
+
 			if zero {
 				rints = append(rints, currentNum)
 			} else if currentNum != 0 {
@@ -109,6 +113,9 @@ func (w *Weather) Run() (string, error) {
 		}
 		log := strings.Split(report, "\n") /* split essentially by line number */
 
+		if len(log) < percip+1 {
+			return "", fmt.Errorf("No weather report?\n\nreport: '%s'", report)
+		}
 		temps := append(extractInts(log[current]), extractInts(log[day])...)
 		percips := extractInts(log[percip])
 
