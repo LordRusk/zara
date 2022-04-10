@@ -16,6 +16,9 @@ I've written many modules for zara to replace many of scripts from my [dotfiles]
 - georona
 - pacpackages
 
+### How To?
+`git clone https://github.com/lordrusk/zara` then edit `mods.go` to your liking. `go mod tidy` to make sure you have all dependencies installed. `go install` to (re)install.
+
 ### Zara vs Gocaudices & Dwmblocks
 One problem I've encountered while writing scripts and programs for dwmblocks is that the script is just ran. Any information shared between runs must be stored in a file, and first run checks are checked every time the script is ran.
 
