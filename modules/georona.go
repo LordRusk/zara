@@ -18,9 +18,8 @@ type Georona struct {
 returns corona virus stats
 
 if country is "" it will return global stats
-`
-assuming you set country to `US` if state isn't ""
-it will return state specific results.
+if state isn't "", regardless of country, it will
+pull stats for that state in the US.
 
 Find names on corona-stats.online */
 func NewGeorona(interv, sig int, country, state string) *Georona {
@@ -72,7 +71,7 @@ func statToStr(s *rona.Stat) string {
 	}
 	if ActiveCovidStats["sicktoday"] == true {
 		if s.NewCases != 0 {
-			rstr += fmt.Sprintf("%s%s ", gsicktoday, humanize.Comma(int64(s.NewCases)))
+			rstr += fmt.Sprintf("%s%s▲ ", gsicktoday, humanize.Comma(int64(s.NewCases)))
 		}
 	}
 	if ActiveCovidStats["dead"] == true {
@@ -82,7 +81,7 @@ func statToStr(s *rona.Stat) string {
 	}
 	if ActiveCovidStats["deadtoday"] == true {
 		if s.NewDeaths != 0 {
-			rstr += fmt.Sprintf("%s%s ", gdeadtoday, humanize.Comma(int64(s.NewDeaths)))
+			rstr += fmt.Sprintf("%s%s▲ ", gdeadtoday, humanize.Comma(int64(s.NewDeaths)))
 		}
 	}
 	if ActiveCovidStats["recovered"] == true {

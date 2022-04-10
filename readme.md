@@ -23,5 +23,8 @@ This is significantly different when writing modules for zara. Most of the first
 
 You can also expect a lot better performance because it isn't calling an external program every time a module is updated, only running a function.
 
+### TODO
+Add a battery module. I don't have a laptop. This is one someone should create a pull request for.
+
 ### other modules
 Here's a link list to other peoples modules:

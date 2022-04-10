@@ -56,7 +56,6 @@ func (a *Audio) SetPos(pos int) {
 func (a *Audio) Pos() int {
 	return a.pos
 }
-
 func (_ Audio) Name() string {
 	return "Audio Module"
 }

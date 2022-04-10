@@ -6,7 +6,7 @@ import "github.com/lordrusk/zara/modules"
 var delim = " "
 
 func init() { /* config */
-	/* modules/georona */
+	/* modules/georona.go */
 	modules.ActiveCovidStats["rank"] = true
 	modules.ActiveCovidStats["totalsick"] = true
 	modules.ActiveCovidStats["sicktoday"] = true
