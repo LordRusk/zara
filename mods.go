@@ -5,20 +5,21 @@ import "github.com/lordrusk/zara/modules"
 
 var delim = " "
 
-func init() { /* config */
-	/* modules/georona.go */
-	modules.ActiveCovidStats["rank"] = true
-	modules.ActiveCovidStats["totalsick"] = true
-	modules.ActiveCovidStats["sicktoday"] = true
-	modules.ActiveCovidStats["dead"] = true
-	modules.ActiveCovidStats["deadToday"] = true
-	modules.ActiveCovidStats["recovered"] = true
-	modules.ActiveCovidStats["critical"] = true
+var activeStats = &modules.WhichCovidStats{
+	Rank:      true,
+	TotalSick: true,
+	SickToday: true,
+	Dead:      true,
+	DeadToday: true,
+	Recovered: true,
+	Active:    true,
+	Critical:  true,
 }
 
 var mods = []modules.Module{
 	modules.NewPacPackages(0, 8),
-	modules.NewGeorona(60, 19, "USA (US)", ""),
+	modules.NewGeorona(60, 19, "USA (US)", "", activeStats), /* us */
+	/* modules.NewGeorona(60, 19, "", "", activeStats), /* world */
 	modules.NewMemory(6, 14, true),
 	modules.NewMemory(6, 14, false),
 	modules.NewCpu(3, 13),

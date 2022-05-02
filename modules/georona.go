@@ -8,8 +8,15 @@ import (
 	rona "github.com/lordrusk/zara/modules/corona_stats"
 )
 
+/*
+struct used for toggling georona modules. */
+type WhichCovidStats = struct {
+	Rank, TotalSick, SickToday, Dead, DeadToday, Recovered, Active, Critical bool
+}
+
 type Georona struct {
 	country, state string
+	as             *WhichCovidStats
 
 	ii, sig, pos int
 }
@@ -22,7 +29,7 @@ if state isn't "", regardless of country, it will
 pull stats for that state in the US.
 
 Find names on corona-stats.online */
-func NewGeorona(interv, sig int, country, state string) *Georona {
+func NewGeorona(interv, sig int, country, state string, as *WhichCovidStats) *Georona {
 	if country == "" {
 		country = "World"
 	}
@@ -30,20 +37,10 @@ func NewGeorona(interv, sig int, country, state string) *Georona {
 	return &Georona{
 		country: country,
 		state:   state,
+		as:      as,
 		ii:      interv,
 		sig:     sig,
 	}
-}
-
-var ActiveCovidStats = map[string]bool{
-	"rank":      true,
-	"totalsick": true,
-	"sicktoday": true,
-	"dead":      true,
-	"deadtoday": true,
-	"recovered": true,
-	"active":    true,
-	"critical":  true,
 }
 
 var (
@@ -57,44 +54,44 @@ var (
 	gcritical  = "😵"
 )
 
-func statToStr(s *rona.Stat) string {
+func statToStr(s *rona.Stat, as *WhichCovidStats) string {
 	var rstr string
-	if ActiveCovidStats["rank"] == true {
+	if as.Rank == true {
 		if s.Rank != 0 {
 			rstr += fmt.Sprintf("%s%s ", grank, humanize.Comma(int64(s.Rank)))
 		}
 	}
-	if ActiveCovidStats["totalsick"] == true {
+	if as.TotalSick == true {
 		if s.TotalCases != 0 {
 			rstr += fmt.Sprintf("%s%s ", gtotalsick, humanize.Comma(int64(s.TotalCases)))
 		}
 	}
-	if ActiveCovidStats["sicktoday"] == true {
+	if as.SickToday == true {
 		if s.NewCases != 0 {
 			rstr += fmt.Sprintf("%s%s▲ ", gsicktoday, humanize.Comma(int64(s.NewCases)))
 		}
 	}
-	if ActiveCovidStats["dead"] == true {
+	if as.Dead == true {
 		if s.TotalDeaths != 0 {
 			rstr += fmt.Sprintf("%s%s ", gdead, humanize.Comma(int64(s.TotalDeaths)))
 		}
 	}
-	if ActiveCovidStats["deadtoday"] == true {
+	if as.DeadToday == true {
 		if s.NewDeaths != 0 {
 			rstr += fmt.Sprintf("%s%s▲ ", gdeadtoday, humanize.Comma(int64(s.NewDeaths)))
 		}
 	}
-	if ActiveCovidStats["recovered"] == true {
+	if as.Recovered == true {
 		if s.Recovered != 0 {
 			rstr += fmt.Sprintf("%s%s ", grecovered, humanize.Comma(int64(s.Recovered)))
 		}
 	}
-	if ActiveCovidStats["active"] == true {
+	if as.Active == true {
 		if s.Active != 0 {
 			rstr += fmt.Sprintf("%s%s ", gactive, humanize.Comma(int64(s.Active)))
 		}
 	}
-	if ActiveCovidStats["critical"] == true {
+	if as.Critical == true {
 		if s.Critical != 0 {
 			rstr += fmt.Sprintf("%s%s ", gcritical, humanize.Comma(int64(s.Critical)))
 		}
@@ -118,7 +115,7 @@ func (g *Georona) Run() (string, error) {
 		if stats[g.state] == nil {
 			return "", fmt.Errorf("%s not a state...check corona-stats.online/states/us", g.state)
 		}
-		return statToStr(stats[g.state]), nil
+		return statToStr(stats[g.state], g.as), nil
 	} else {
 		stats, err := rona.ExtractStats(worldReport)
 		if err != nil {
@@ -128,7 +125,7 @@ func (g *Georona) Run() (string, error) {
 		if stats[g.country] == nil {
 			return "", fmt.Errorf("%s not a country...check corona-stats.online", g.country)
 		}
-		return statToStr(stats[g.country]), nil
+		return statToStr(stats[g.country], g.as), nil
 	}
 }
 
