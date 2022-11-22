@@ -19,6 +19,11 @@ I've written many modules for zara to replace many of scripts from my [dotfiles]
 ### How To?
 `git clone https://github.com/lordrusk/zara` then edit `mods.go` to your liking. `go mod tidy` to make sure you have all dependencies installed. `go install` to (re)install.
 
+### Signals
+The module definition of `modules.NewAudio(0, 10),` would be updated like `kill -44 $(pidof zara)` A dwm volume mute keybind might look like `{ 0, XF86XK_AudioMute, spawn, SHCMD("pamixer -t; kill -44 $(pidof gocaudices)") },`. NOTE: You're updating sig 44 because the first 34 signals are in use.
+
+
+
 ### Zara vs Gocaudices & Dwmblocks
 One problem I've encountered while writing scripts and programs for dwmblocks is that the script is just ran. Any information shared between runs must be stored in a file, and first run checks are checked every time the script is ran.
 
