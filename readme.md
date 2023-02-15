@@ -1,3 +1,5 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/lordrusk/zara)](https://goreportcard.com/report/github.com/lordrusk/zara)
+
 Dwm statusbar modeled after [gocaudices](https://github.com/lordrusk/gocaudices) expandable in Go through an [interface](https://github.com/LordRusk/zara/blob/master/modules/modules.go).
 
 ### modules
