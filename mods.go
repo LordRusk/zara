@@ -30,7 +30,7 @@ var mods = []modules.Module{
 	modules.NewMoonphase(12*60*60, 18, "kennewick"),
 	modules.NewWeather(60, 5, 10, "kennewick"),
 	modules.NewNettraf(16),
-	modules.NewBat(1, 3),
+	modules.NewBat(10, 3),
 	modules.NewAudio(0, 10),
 	modules.NewTime(1, 1),
 	modules.NewInternet(5, 4),
