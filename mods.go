@@ -18,7 +18,7 @@ var activeStats = &modules.WhichCovidStats{
 
 var mods = []modules.Module{
 	modules.NewPacPackages(0, 8),
-	modules.NewGeorona(60, 19, "USA (US)", "", activeStats), /* us */
+	/* modules.NewGeorona(60, 19, "USA (US)", "", activeStats), /* us */
 	/* modules.NewGeorona(60, 19, "", "", activeStats), /* world */
 	modules.NewMemory(6, 14, true),
 	modules.NewMemory(6, 14, false),
@@ -30,6 +30,7 @@ var mods = []modules.Module{
 	modules.NewMoonphase(12*60*60, 18, "kennewick"),
 	modules.NewWeather(60, 5, 10, "kennewick"),
 	modules.NewNettraf(16),
+	modules.NewBat(1, 3),
 	modules.NewAudio(0, 10),
 	modules.NewTime(1, 1),
 	modules.NewInternet(5, 4),
@@ -38,7 +39,7 @@ var mods = []modules.Module{
 /* For my dotfiles
 1 clock | time
 2 sip (unimplemented)
-3 battery (unimplemented)
+3 battery
 4 internet
 5 weather
 6 news (unimplemented)
