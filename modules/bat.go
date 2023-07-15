@@ -32,16 +32,16 @@ func (_ *Bat) Run() (string, error) {
 			str += " "
 		}
 		perc := int(battery.Current / battery.Full * 100)
-		if perc < 10 {
-			str += fmt.Sprint("")
-		} else if perc > 10 {
-			str += fmt.Sprint("")
-		} else if perc > 50 {
-			str += fmt.Sprint("")
+		if perc > 90 {
+			str += fmt.Sprint("")
 		} else if perc > 80 {
 			str += fmt.Sprint("")
-		} else if perc > 90 {
-			str += fmt.Sprint("")
+		} else if perc > 50 {
+			str += fmt.Sprint("")
+		} else if perc > 30 {
+			str += fmt.Sprint("")
+		} else if perc < 10 {
+			str += fmt.Sprint("")
 		}
 		str += fmt.Sprintf("%d%%", int(battery.Current/battery.Full*100))
 		if battery.State.String() == "Charging" {
