@@ -25,8 +25,6 @@ I've written many modules for zara to replace many of scripts from my [dotfiles]
 ### Signals
 The module definition of `modules.NewAudio(0, 10),` would be updated like `kill -44 $(pidof zara)` A dwm volume mute keybind might look like `{ 0, XF86XK_AudioMute, spawn, SHCMD("pamixer -t; kill -44 $(pidof gocaudices)") },`. NOTE: You're updating sig 44 because the first 34 signals are in use.
 
-
-
 ### Zara vs Gocaudices & Dwmblocks
 One problem I've encountered while writing scripts and programs for dwmblocks is that the script is just ran. Any information shared between runs must be stored in a file, and first run checks are checked every time the script is ran.
 
@@ -36,3 +34,23 @@ You can also expect a lot better performance because it isn't calling an externa
 
 ### other modules
 Here's a link list to other peoples modules:
+
+
+## AWESOME BARS
+dwm bars that I think are awesome! check them out and give them a star!
+
+• [sysmon](https://github.com/blmayer/sysmon/tree/main) I would use this if I hadn't made zara
+
+• [spoon](https://git.2f30.org/spoon/) I don't know much C but this is great
+
+• [rsblocks](https://github.com/MustafaSalih1993/rsblocks) I don't know much Rust, but featureful and well starred, makes me wanna get my status emoji game up to par
+
+• [mblocks](https://gitlab.com/mhdy/mblocks) another great rusty bar
+
+• [integrated-status-text](https://dwm.suckless.org/patches/integrated-status-text) the way god intended
+  
+• [gods](https://github.com/schachmat/gods) ICONIC
+
+• [dwmblocks-async](https://github.com/UtkarshVerma/dwmblocks-async) Awesome! I wrote this project because dwmblocks wasn't async...and I've lived without bar clickability since...maybe should have gone with this and learned C!
+
+•[Luke Smith's Dwmblocks](https://github.com/LukeSmithxyz/dwmblocks) how could I forget where it all began?
