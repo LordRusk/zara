@@ -3,6 +3,7 @@ package modules
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"sort"
 	"strconv"
 	"strings"
@@ -19,9 +20,9 @@ with varied weather report update interval
 separate from modules update interval.
 */
 type Weather struct {
-	barstr, location string
-	upInterv         int
-	lastUpdate       time.Time
+	barstr, location, savePath string
+	upInterv                   int
+	lastUpdate                 time.Time
 
 	ii, sig, pos int
 }
@@ -38,13 +39,20 @@ see wttr.in for details
 
 if no location is given, it use's your ip,
 this can be inaccurate like in my case.
+
+savePath is the path to where the weather report
+will be saved. Zara will not use this report,
+this is mostly for debugging. Leaving blank
+will not save weather reports, and new reports
+will overwrite old reports
 */
-func NewWeather(interv, sig, updateWeatherReport int, location string) *Weather {
+func NewWeather(interv, sig, updateWeatherReport int, location string, savePath string) *Weather {
 	return &Weather{
 		location: location,
 		upInterv: updateWeatherReport,
 		ii:       interv,
 		sig:      sig,
+		savePath: savePath,
 	}
 }
 
@@ -104,25 +112,52 @@ const ( /* significant line numbers */
 	percip  = 15
 )
 
+func save(info, path string) error {
+	parentSplit := strings.Split(path, "/")
+	parent := strings.Join(parentSplit[:len(parentSplit)-1], "/")
+	if err := os.MkdirAll(parent+"/", os.ModePerm); err != nil {
+		/* return fmt.Errorf("Cannot create '%s': %s\n", path+"/", err) /**/
+		fmt.Printf("Cannot create '%s': %s\n", parent+"/", err) /**/
+	}
+	if err := os.WriteFile(path, []byte(info), os.ModePerm); err != nil {
+		fmt.Printf("Cannot write to '%s': %s\n", path, err) /**/
+		/* return fmt.Errorf("Cannot write to '%s': %s\n", path, err) /**/
+	}
+	return nil
+}
+
 func (w *Weather) Run() (string, error) {
+	/* check time */
 	if w.lastUpdate.Add(time.Duration(w.upInterv) * time.Minute).Before(time.Now()) {
-		w.lastUpdate = time.Now()
+		/* get report */
 		report, err := getReport(w.location)
 		if err != nil {
 			return "", fmt.Errorf("Failed to get weather report: %s", err)
 		}
 		log := strings.Split(report, "\n") /* split essentially by line number */
 
+		/* check report quality */
 		if len(log) < percip+1 {
 			return "", fmt.Errorf("No weather report?\n\nreport: '%s'", report)
 		}
+
+		/* save locally */
+		if w.savePath != "" {
+			if err := save(fmt.Sprintf("%s\n%s", time.Now().String(), report), w.savePath); err != nil {
+				fmt.Printf("Unable to save locally! %s...moving forward...\n", err)
+			}
+		}
+
+		/* number extraction and calculation */
 		temps := append(extractInts(log[current]), extractInts(log[day])...)
 		percips := extractInts(log[percip])
 
 		sort.Ints(temps)
 		sort.Ints(percips)
 
+		/* format and save finished product */
 		w.barstr = fmt.Sprintf("☔%d%% ❄%d° ☀%d°", percips[len(percips)-1], temps[0], temps[len(temps)-1])
+		w.lastUpdate = time.Now()
 	}
 
 	return w.barstr, nil

@@ -17,23 +17,23 @@ var activeStats = &modules.WhichCovidStats{
 }
 
 var mods = []modules.Module{
-	modules.NewPacPackages(0, 8),
+	/* modules.NewPacPackages(0, 8), /* */
 	/* modules.NewGeorona(60, 19, "USA (US)", "", activeStats), /* us */
 	/* modules.NewGeorona(60, 19, "", "", activeStats), /* world */
-	modules.NewMemory(6, 14, true),
-	modules.NewMemory(6, 14, false),
-	modules.NewCpu(3, 13),
-	modules.NewCpubar(1, 22),
-	modules.NewDisk(7, 15, "/mnt"),
-	modules.NewDisk(7, 15, "/home"),
-	modules.NewDisk(7, 15, ""),
-	modules.NewMoonphase(12*60*60, 18, "kennewick"),
-	modules.NewWeather(60, 5, 10, "kennewick"),
-	modules.NewNettraf(16),
-	modules.NewBat(10, 3),
-	modules.NewAudio(0, 10),
-	modules.NewTime(1, 1),
-	modules.NewInternet(5, 4),
+	modules.NewMemory(6, 14, true),  /* */
+	modules.NewMemory(6, 14, false), /* */
+	modules.NewCpu(3, 13, true),     /* */
+	modules.NewCpubar(1, 22),        /* */
+	/* modules.NewDisk(7, 15, "/mnt"), /* */
+	/* modules.NewDisk(7, 15, "/home"), /* */
+	modules.NewDisk(7, 15, ""), /* */
+	/* modules.NewMoonphase(12*60*60, 18, "kennewick"), /* */
+	modules.NewWeather(60, 5, 10, "kennewick", "/home/shiva/weatherReport"), /* */
+	modules.NewNettraf(16),    /* */
+	modules.NewBat(10, 3),     /* */
+	modules.NewAudio(0, 10),   /* */
+	modules.NewTime(1, 1),     /* */
+	modules.NewInternet(5, 4), /* */
 }
 
 /* For my dotfiles
