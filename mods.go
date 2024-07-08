@@ -26,9 +26,10 @@ var mods = []modules.Module{
 	modules.NewCpubar(1, 22),        /* */
 	/* modules.NewDisk(7, 15, "/mnt"), /* */
 	/* modules.NewDisk(7, 15, "/home"), /* */
-	modules.NewDisk(7, 15, ""), /* */
-	/* modules.NewMoonphase(12*60*60, 18, "kennewick"), /* */
-	modules.NewWeather(60, 5, 10, "kennewick", "/home/shiva/weatherReport"), /* */
+	modules.NewDisk(7, 15, ""),                      /* */
+	modules.NewMoonphase(12*60*60, 18, "kennewick"), /* */
+	modules.NewWeather(60, 5, 10, "kennewick", ""),  /* */
+	/* modules.NewWeather(60, 5, 10, "kennewick", "/home/shiva/weatherReport"), /* */
 	modules.NewNettraf(16),    /* */
 	modules.NewBat(10, 3),     /* */
 	modules.NewAudio(0, 10),   /* */
